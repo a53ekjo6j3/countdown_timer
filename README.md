@@ -1,39 +1,55 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
-
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+# countdown_timer
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
 ```dart
-const like = 'sample';
+class _MyHomePageState extends State<MyHomePage> {
+  final CountdownTimerController controller = CountdownTimerController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CountdownTimer(
+              controller: controller,
+              builder: (context, ctt) {
+                return Text(
+                  ctt.toString(),
+                  style: const TextStyle(fontSize: 36),
+                );
+              },
+            ),
+            Container(height: 36),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: () => controller.startTimer(
+                    duration: const Duration(minutes: 5),
+                  ),
+                  child: const Text('START'),
+                ),
+                TextButton(
+                  onPressed: controller.pause,
+                  child: const Text('PAUSE'),
+                ),
+                TextButton(
+                  onPressed: controller.resume,
+                  child: const Text('RESUME'),
+                ),
+                TextButton(
+                  onPressed: controller.cancel,
+                  child: const Text('CANCEL'),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
 ```
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
